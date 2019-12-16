@@ -44,9 +44,9 @@ CREATE TABLE Tools (
 -- table Images creation
 -- must be after Tools or error due to reference to Tools
 CREATE TABLE Images (
-  i_id integer NOT NULL PRIMARY KEY,
+  image_id integer NOT NULL PRIMARY KEY,
   image VARCHAR(255) UNIQUE NOT NULL ,
-  t_id integer NOT NULL ,
+  tool_id integer NOT NULL ,
   image_num integer not null,
   image_name VARCHAR(100) NOT NULL,
   FOREIGN KEY (tool_id) REFERENCES Tools(tool_id)
