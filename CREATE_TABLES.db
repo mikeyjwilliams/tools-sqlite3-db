@@ -1,0 +1,53 @@
+--sqlite
+
+-- Table Brands creation.
+CREATE TABLE Brands (
+  brand_id integer NOT NULL PRIMARY KEY,
+  brand VARCHAR(35) UNIQUE NOT NULL
+);
+
+-- table Categories creation
+CREATE TABLE Categories (
+  category_id integer NOT NULL PRIMARY KEY,
+  category VARCHAR(35) unique NOT NULL 
+);
+
+-- Table Types creation
+CREATE TABLE Types (
+  tool_type_id integer  NOT NULL PRIMARY KEY,
+  tool_type VARCHAR(35) UNIQUE NOT NULL
+);
+
+
+-- table Tools created Note* must be after Brands, Categories, and Types
+-- Due to the Foreign key references pointing to the other tables otherwise
+-- you will receive an error if you try to run this table before the others.
+CREATE TABLE Tools (
+  tool_id integer NOT NULL PRIMARY KEY,
+  item_code varchar(7) UNIQUE NOT NULL ,
+  item_name VARCHAR(45) NOT NULL,
+  retail_price real,
+  sale_price real  NOT NULL ,
+  item_pieces integer NOT NULL ,
+  qty integer NOT NULL ,
+  sold integer NOT NULL ,
+  description TEXT NOT NULL,
+  brand_id integer NOT NULL ,
+  category_id integer NOT NULL ,
+  tool_type_id integer NOT NULL ,
+  FOREIGN KEY ( brand_id ) REFERENCES Brands ( brand_id ),
+  FOREIGN KEY ( category_id ) REFERENCES Categories ( category_id ),
+  FOREIGN KEY ( tool_type_id ) REFERENCES Types ( tool_type_id )
+
+);
+
+-- table Images creation
+-- must be after Tools or error due to reference to Tools
+CREATE TABLE Images (
+  i_id integer NOT NULL PRIMARY KEY,
+  image VARCHAR(255) UNIQUE NOT NULL ,
+  t_id integer NOT NULL ,
+  image_num integer not null,
+  image_name VARCHAR(100) NOT NULL,
+  FOREIGN KEY (tool_id) REFERENCES Tools(tool_id)
+);
